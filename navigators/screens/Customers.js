@@ -13,8 +13,8 @@ export default function Customers() {
         
         <InnerContainer>
           
-          <PageTitle>المساعدة و الحاجات دي</PageTitle>
-          <SubTitle>كلم رقم 512121545</SubTitle>
+          <PageTitle>للتواصل</PageTitle>
+          <SubTitle>benudhelp@gmail.com</SubTitle>
           
         </InnerContainer>
       </StyledContainer>
