@@ -140,7 +140,7 @@ export default function Customer() {
   };
 
   return (
-    <KeyboardAvoidingWrapper>
+    
       <StyledContainer>
         <PageTitle2 style={{ textAlign: 'right' }}>آهلا {name}</PageTitle2>
         <InnerContainer style={{ flexDirection: 'row-reverse', alignItems: 'center' }}>
@@ -166,15 +166,14 @@ export default function Customer() {
         </View>
 
         {/* Table Data */}
-        <View style={{ flex: 1, marginBottom: 80 /* Adjust this value as needed */ }}>
-          <FlatList
-            data={tableData}
-            renderItem={renderTableRow}
-            keyExtractor={(item) => item.id}
-            style={{ width: '100%' }}
-            ItemSeparatorComponent={renderSeparator} // Add the separator component
-          />
-        </View>
+        <FlatList
+          data={tableData}
+          renderItem={renderTableRow}
+          keyExtractor={(item) => item.id}
+          style={{ width: '100%' }}
+          ItemSeparatorComponent={renderSeparator} // Add the separator component
+          keyboardShouldPersistTaps="handled" 
+        />
 
         {/* Plus Button Container */}
         <View
@@ -188,7 +187,7 @@ export default function Customer() {
           <TouchableOpacity
             onPress={handlePlusButtonPress}
             style={{
-              backgroundColor: 'black',
+              backgroundColor: '#000000',
               width: 60,
               height: 60,
               borderRadius: 25,
@@ -201,6 +200,6 @@ export default function Customer() {
           
         </View>
       </StyledContainer>
-    </KeyboardAvoidingWrapper>
+   
   );
 }

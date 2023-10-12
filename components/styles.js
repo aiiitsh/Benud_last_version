@@ -13,6 +13,8 @@ export const Colors = {
   brand: '#3EB489',
   green: '#10B981',
   red: '#A020F0',
+  black:'#000000',
+  grey: '#454545'
 };
 
 const { primary, secondary, tertiary, darkLight, brand, green, red } = Colors;
@@ -74,7 +76,7 @@ export const PageTitle2 = styled.Text`
   font-size: 30px;
   text-align: right;
   font-weight: bold;
-  color: 'black';
+  color: ${Colors.black};
   padding: 10px;
   margin-left: 200px;  
 
@@ -117,7 +119,7 @@ export const GreyNumber = styled.Text`
   margin-bottom: 20px;
   letter-spacing: 1px;
   font-weight: normal;
-  color: 'grey';
+  color: ${Colors.grey};
   margin-right: -260px;  
 `;
 export const StyledTextInput = styled.TextInput`

@@ -58,7 +58,7 @@ export default function Projects(props) {
           justifyContent: 'space-between',
           paddingVertical: 10,
           borderBottomWidth: 1,
-          borderBottomColor: 'grey',
+          borderBottomColor: '#454545',
           alignItems: 'center',
         }}
       >
@@ -69,7 +69,7 @@ export default function Projects(props) {
         />
         <Text style={{ textAlign: 'right', flex: 2 }}>|</Text>
         <TextInput
-          style={{ textAlign: 'right', flex: 2, color: 'red' }}
+          style={{ textAlign: 'right', flex: 2, color: '#00FF00' }}
           value={item.projectName}
           onChangeText={(text) => handleTextChange(item._id, 'projectName', text)}
         />
@@ -148,12 +148,12 @@ export default function Projects(props) {
         >
           <TouchableOpacity onPress={handleBackButtonPress}>
             {/* Replace text with a back arrow icon */}
-            <Ionicons name="arrow-back" size={34} color="black" />
+            <Ionicons name="arrow-back" size={34} color='#000000' />
           </TouchableOpacity>
           <PageTitle style={{ textAlign: 'right' }}>{props.route.params.customerName}</PageTitle>
         </View>
         <TouchableOpacity onPress={handlePhoneNumberPress}>
-          <SubTitle style={{ textAlign: 'right', textDecorationLine: 'underline', color: 'black' }}>
+          <SubTitle style={{ textAlign: 'right', textDecorationLine: 'underline', color: '#000000' }}>
           {props.route.params.customerPhone}
           </SubTitle>
         </TouchableOpacity>
@@ -177,7 +177,7 @@ export default function Projects(props) {
         >
           <Text style={{ textAlign: 'right', flex: 2 }}>العنوان</Text>
           <Text style={{ textAlign: 'right', flex: 2 }}>|</Text>
-          <Text style={{ textAlign: 'right', flex: 2, color: 'red' }}>المشروع</Text>
+          <Text style={{ textAlign: 'right', flex: 2, color: '#00FF00' }}>المشروع</Text>
           <Text style={{ textAlign: 'right', flex: 1 }}></Text>
         </View>
 
@@ -203,7 +203,7 @@ export default function Projects(props) {
           <TouchableOpacity
             onPress={handlePlusButtonPress}
             style={{
-              backgroundColor: 'black',
+              backgroundColor: '#000000',
               width: 60,
               height: 60,
               borderRadius: 25,
@@ -211,7 +211,7 @@ export default function Projects(props) {
               alignItems: 'center',
             }}
           >
-            <Text style={{ color: 'white', fontSize: 36 }}>+</Text>
+            <Text style={{ color: '#FFFFFF', fontSize: 36 }}>+</Text>
           </TouchableOpacity>
         </View>
 

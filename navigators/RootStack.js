@@ -35,20 +35,21 @@ function RootStack() {
 
           headerShown: false, // hide header
           tabBarStyle: {
-            backgroundColor: 'black',
+            backgroundColor: '#000000',
             height: 60, // set navigation bar color to black
             display:
               route.name === 'Login' || route.name === 'Signup'
                 ? 'none'
                 : 'flex', // Hide tabBar on the login and sign-up pages
           },
+          tabBarLabelStyle: {
+            display:
+              route.name === 'Login' || route.name === 'Signup'
+                ? 'none'
+                : 'flex', // Hide tab labels on the login and sign-up pages
+          },
         })}
-        tabBarOptions={{
-          activeTintColor: '#10B981',
-          inactiveTintColor: 'grey',
-          labelStyle: { paddingBottom: 10, fontSize: 10 },
-          style: { padding: 10, height: 100 },
-        }}>
+      >
         <Tab.Screen
           name={'Login'}
           component={Login}
@@ -71,7 +72,6 @@ function RootStack() {
           component={Customer}
           options={{
             tabBarLabel: 'العملاء', // set the label to العملاء
-            
           }}
         />
         <Tab.Screen
@@ -79,11 +79,9 @@ function RootStack() {
           component={Customers}
           options={{
             tabBarLabel: 'المساعدة', // set the label to المساعدة
-            
           }}
         />
-
-<Tab.Screen
+        <Tab.Screen
           name={'Projects'}
           component={Projects}
           options={{
@@ -107,7 +105,6 @@ function RootStack() {
             tabBarButton: () => null, // Render an empty component, effectively hiding the tab screen
           }}
         />
-        
         <Tab.Screen
           name={'Hesabat'}
           component={Hesabat}
@@ -116,9 +113,6 @@ function RootStack() {
             tabBarButton: () => null, // Render an empty component, effectively hiding the tab screen
           }}
         />
-        
-
-        
       </Tab.Navigator>
     </NavigationContainer>
   );
