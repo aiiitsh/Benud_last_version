@@ -97,7 +97,7 @@ export default function Hesabat() {
             flex: 1,
             color: item.notes ? 'black' : 'lightgrey',
           }}
-          value={item.notes}
+          value={item.notes !== undefined ? item.notes.toString() : '0'}
           placeholder=".........."
           placeholderTextColor="lightgrey"
           onChangeText={(text) => handleTextChange(item._id, 'notes', text)}
@@ -109,7 +109,7 @@ export default function Hesabat() {
             flex: 1,
             color: item.paid ? 'black' : 'lightgrey',
           }}
-          value={item.paid}
+          value={item.paid !== undefined ? item.paid.toString() : '0'}
           placeholder=".........."
           placeholderTextColor="lightgrey"
           keyboardType="numeric" // Add this line

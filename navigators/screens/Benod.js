@@ -105,8 +105,6 @@ export default function Benod(props) {
 
   const handleRowPress = (item) => {
     navigation.navigate('Hesabat', {
-      change,
-      setChange,
       customerId: props.route.params.customerId,
       bandId: item._id,
       customerName: props.route.params.customerName,
