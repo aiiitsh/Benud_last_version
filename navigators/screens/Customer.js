@@ -113,7 +113,7 @@ export default function Customer() {
       </View>
     </TouchableOpacity>
   );
-
+  
   const renderSeparator = () => (
     <View
       style={{
@@ -167,13 +167,14 @@ export default function Customer() {
 
         {/* Table Data */}
         <FlatList
-          data={tableData}
-          renderItem={renderTableRow}
-          keyExtractor={(item) => item.id}
-          style={{ width: '100%' }}
-          ItemSeparatorComponent={renderSeparator} // Add the separator component
-          keyboardShouldPersistTaps="handled" 
-        />
+  data={tableData}
+  renderItem={renderTableRow}
+  keyExtractor={(item, index) => index.toString()} // Use the index as the key
+  style={{ width: '100%' }}
+  ItemSeparatorComponent={renderSeparator}
+  keyboardShouldPersistTaps="handled"
+/>
+
 
         {/* Plus Button Container */}
         <View

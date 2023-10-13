@@ -19,7 +19,7 @@ import { Octicons, Fontisto, Ionicons } from '@expo/vector-icons';
 
 const categoryOptions = ['تشطيب', 'مصنعية', 'اخري'];
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import {
   StyledContainer,
@@ -32,8 +32,10 @@ import {
 //colors
 const { darkLight, brand, primary } = Colors;
 
-export default function Hesabat(props) {
+export default function Hesabat() {
   const navigation = useNavigation();
+  const route = useRoute();
+
   const [change, setChange] = useState(false); // Default to View A
 
   const [customersDataA, setCustomersDataA] = useState([]);
@@ -44,7 +46,7 @@ export default function Hesabat(props) {
     const token = SyncStorage.get('token');
     axios
       .get(
-        `http://54.161.133.43:5001/api/client/hesabat/${props.route.params.bandId}/A`,
+        `http://54.161.133.43:5001/api/client/hesabat/${route.params.bandId}/A`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
@@ -54,7 +56,7 @@ export default function Hesabat(props) {
       .catch((err) => console.log('error'));
     axios
       .get(
-        `http://54.161.133.43:5001/api/client/hesabat/${props.route.params.bandId}/B`,
+        `http://54.161.133.43:5001/api/client/hesabat/${route.params.bandId}/B`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
@@ -62,7 +64,8 @@ export default function Hesabat(props) {
         console.log(res.data.bandHesabat);
       })
       .catch((err) => console.log('error'));
-  }, [activeView, props, change]);
+  }, [activeView, route, change]);
+
   const [filterOption, setFilterOption] = useState('all'); // Initialize filter option state
 
   const numOfCustomersA = customersDataA.length;
@@ -177,7 +180,7 @@ export default function Hesabat(props) {
       axios
         .post(
           'http://54.161.133.43:5001/api/client/hesabat/addHesab',
-          { _id: props.route.params.bandId, classType: 'A' },
+          { _id: route.params.bandId, classType: 'A' },
           { headers }
         )
         .then((res) => {
@@ -189,7 +192,7 @@ export default function Hesabat(props) {
       axios
         .post(
           'http://54.161.133.43:5001/api/client/hesabat/addHesab',
-          { _id: props.route.params.bandId, classType: 'B' },
+          { _id: route.params.bandId, classType: 'B' },
           { headers }
         )
         .then((res) => {
@@ -279,11 +282,10 @@ export default function Hesabat(props) {
 
   const handleBackButtonPress = () => {
     // Implement the navigation to Benod.js when the back button is pressed
-    props.route.params.setChange((prev) => !prev);
     navigation.navigate('Benod', {
-      customerId: props.route.params.customerId,
-      customerName: props.route.params.customerName,
-      customerPhone: props.route.params.customerPhone,
+      customerId: route.params.customerId,
+      customerName: route.params.customerName,
+      customerPhone: route.params.customerPhone,
       timestamp: Date.now(),
     });
   };
@@ -293,7 +295,7 @@ export default function Hesabat(props) {
   const numOfCustomers = activeView === 'A' ? numOfCustomersA : numOfCustomersB;
 
   return (
-    <KeyboardAvoidingWrapper>
+    
       <StyledContainer>
         <View
           style={{
@@ -309,11 +311,11 @@ export default function Hesabat(props) {
           </TouchableOpacity>
           {/* Rest of your header */}
           <PageTitle style={{ textAlign: 'right' }}>
-            {props.route.params.customerName}
+            {route.params.customerName}
           </PageTitle>
         </View>
         <SubTitle style={{ textAlign: 'right' }}>
-          {props.route.params.bandInfo}
+          {route.params.bandInfo}
         </SubTitle>
         <View
           style={{
@@ -399,6 +401,7 @@ export default function Hesabat(props) {
             keyExtractor={(item) => item._id}
             style={{ width: '100%' }}
             ItemSeparatorComponent={renderSeparator}
+            keyboardShouldPersistTaps="handled" 
           />
         </View>
 
@@ -428,6 +431,5 @@ export default function Hesabat(props) {
 
         {/* Switch Button */}
       </StyledContainer>
-    </KeyboardAvoidingWrapper>
   );
 }

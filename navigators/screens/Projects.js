@@ -136,7 +136,7 @@ export default function Projects(props) {
   };
 
   return (
-    <KeyboardAvoidingWrapper>
+    
       <StyledContainer>
       <View
           style={{
@@ -189,6 +189,7 @@ export default function Projects(props) {
             keyExtractor={(item) => item._id}
             style={{ width: '100%' }}
             ItemSeparatorComponent={renderSeparator}
+            keyboardShouldPersistTaps="handled" 
           />
         </View>
 
@@ -246,6 +247,6 @@ export default function Projects(props) {
           </TouchableOpacity>
         </View> */}
       </StyledContainer>
-    </KeyboardAvoidingWrapper>
+   
   );
 }
