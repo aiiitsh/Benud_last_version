@@ -14,7 +14,8 @@ import * as FileSystem from 'expo-file-system';
 import Constants from 'expo-constants'; // Import Constants from Expo
 import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message";
 
-const downloadFile = async (url) => {
+const downloadFile = async (url, token) => {
+  console.log(url, token)
   if (Constants.platform.ios) {
     const { status } = await MediaLibrary.requestPermissionsAsync();
 
@@ -22,44 +23,87 @@ const downloadFile = async (url) => {
       console.error('Permission to access media library denied');
       return;
     }
-  }
 
-  let path = url.split('/');
-  const file_name = path[path.length - 1];
+    // Extract the file name and extension from the URL
+    const fileNameMatch = url.match(/\/([^\/?#]+)[^\/]*$/);
+    let file_name = fileNameMatch ? fileNameMatch[1] : 'downloaded_file';
 
-  FileSystem.downloadAsync(
-    url,
-    FileSystem.documentDirectory + file_name
-  )
-    .then(({ uri }) => {
-      console.log('Finished downloading to ', uri);
-      MediaLibrary.createAssetAsync(uri)
-        .then((asset) => {
-          console.log('asset', asset);
-          MediaLibrary.createAlbumAsync('myfolder', asset)
-            .then(() => {
-              showMessage({
-                message: ('general.success'),
-                description: ('download.success'),
-                type: 'success',
-              });
-            })
-            .catch((error) => {
-              showMessage({
-                message: ('general.success'),
-                description: ('download.failed'),
-                type: 'danger',
-              });
-            });
-        })
-        .catch((error) => {
-          console.error(error);
+    // Ensure the file name has an extension (e.g., '.pdf')
+    if (!file_name.includes('.')) {
+      // If it doesn't have an extension, you can add one manually or specify a default extension
+      file_name += '.pdf'; // Change '.pdf' to the desired file extension
+    }
+
+    // Create headers with the authorization token
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      // Add other headers if needed
+    };
+
+    try {
+      const downloadResult = await FileSystem.downloadAsync(
+        url,
+        FileSystem.documentDirectory + file_name,
+        { headers }
+      );
+
+      if (downloadResult.status !== 200) {
+        console.error('Download failed with status code: ' + downloadResult.status);
+        showMessage({
+          message: 'Download Failed',
+          description: 'Failed to download the file',
+          type: 'danger',
         });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+        return;
+      }
+
+      const uri = downloadResult.uri;
+
+      const asset = await MediaLibrary.createAssetAsync(uri);
+
+      if (!asset) {
+        console.error('Could not create asset');
+        showMessage({
+          message: 'Create Asset Error',
+          description: 'Failed to create the asset',
+          type: 'danger',
+        });
+        return;
+      }
+
+      const albumName = 'myfolder';
+      const album = await MediaLibrary.createAlbumAsync(albumName, asset);
+
+      if (!album) {
+        console.error('Could not create album');
+        showMessage({
+          message: 'Create Album Error',
+          description: 'Failed to create the album',
+          type: 'danger',
+        });
+        return;
+      }
+
+      showMessage({
+        message: 'Download Success',
+        description: 'File downloaded successfully',
+        type: 'success',
+      });
+
+    } catch (error) {
+      console.error('Error during download: ', error);
+      showMessage({
+        message: 'Download Error',
+        description: error.message,
+        type: 'danger',
+      });
+    }
+  }
 };
+
+
+
+
 
 import {
   StyledContainer,
@@ -87,11 +131,16 @@ export default function Benod(props) {
 
   useEffect(() => {
     const token = SyncStorage.get('token');
+    
     axios.get(`http://54.161.133.43:5001/api/client/benod/${props.route.params.projectId}`, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => {
         setTableData(res.data.benod);
       })
       .catch(err => console.log('error'));
+
+
+      
+
 
     axios.get(`http://54.161.133.43:5001/api/client/project/${props.route.params.projectId}`, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => {
@@ -346,7 +395,8 @@ export default function Benod(props) {
               const permission = await MediaLibrary.requestPermissionsAsync();
 
               if (permission.status === 'granted') {
-                await downloadFile("http://techslides.com/demos/sample-videos/small.mp4");
+                const token = SyncStorage.get('token');
+                await downloadFile(`http://54.161.133.43:5001/api/client/project/getPdf/${props.route.params.projectId}`, token);
               } else {
                 console.error('Permission to access media library denied');
               }
