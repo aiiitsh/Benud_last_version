@@ -14,94 +14,40 @@ import * as FileSystem from 'expo-file-system';
 import Constants from 'expo-constants'; // Import Constants from Expo
 import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message";
 
-const downloadFile = async (url, token) => {
-  console.log(url, token)
-  if (Constants.platform.ios) {
-    const { status } = await MediaLibrary.requestPermissionsAsync();
+import { printToFileAsync } from 'expo-print';
+import { shareAsync } from 'expo-sharing';
 
-    if (status !== 'granted') {
-      console.error('Permission to access media library denied');
-      return;
+const downloadAndSavePDF = async (url, token) => {
+  const permission = await MediaLibrary.requestPermissionsAsync();
+  
+  if (permission.status !== 'granted') {
+    console.error('Permission to access media library denied');
+    return;
+  }
+
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      const htmlContent = await response.text();
+      const file = await printToFileAsync({
+        html: htmlContent,
+        base64: false
+      })
+
+      await shareAsync(file.uri)
+    } else {
+      console.error('API request failed with status:', response.status);
     }
-
-    // Extract the file name and extension from the URL
-    const fileNameMatch = url.match(/\/([^\/?#]+)[^\/]*$/);
-    let file_name = fileNameMatch ? fileNameMatch[1] : 'downloaded_file';
-
-    // Ensure the file name has an extension (e.g., '.pdf')
-    if (!file_name.includes('.')) {
-      // If it doesn't have an extension, you can add one manually or specify a default extension
-      file_name += '.pdf'; // Change '.pdf' to the desired file extension
-    }
-
-    // Create headers with the authorization token
-    const headers = {
-      Authorization: `Bearer ${token}`,
-      // Add other headers if needed
-    };
-
-    try {
-      const downloadResult = await FileSystem.downloadAsync(
-        url,
-        FileSystem.documentDirectory + file_name,
-        { headers }
-      );
-
-      if (downloadResult.status !== 200) {
-        console.error('Download failed with status code: ' + downloadResult.status);
-        showMessage({
-          message: 'Download Failed',
-          description: 'Failed to download the file',
-          type: 'danger',
-        });
-        return;
-      }
-
-      const uri = downloadResult.uri;
-
-      const asset = await MediaLibrary.createAssetAsync(uri);
-
-      if (!asset) {
-        console.error('Could not create asset');
-        showMessage({
-          message: 'Create Asset Error',
-          description: 'Failed to create the asset',
-          type: 'danger',
-        });
-        return;
-      }
-
-      const albumName = 'myfolder';
-      const album = await MediaLibrary.createAlbumAsync(albumName, asset);
-
-      if (!album) {
-        console.error('Could not create album');
-        showMessage({
-          message: 'Create Album Error',
-          description: 'Failed to create the album',
-          type: 'danger',
-        });
-        return;
-      }
-
-      showMessage({
-        message: 'Download Success',
-        description: 'File downloaded successfully',
-        type: 'success',
-      });
-
-    } catch (error) {
-      console.error('Error during download: ', error);
-      showMessage({
-        message: 'Download Error',
-        description: error.message,
-        type: 'danger',
-      });
-    }
+  } catch (error) {
+    console.error('Error while converting HTML to PDF:', error);
   }
 };
-
-
 
 
 
@@ -132,7 +78,7 @@ export default function Benod(props) {
   useEffect(() => {
     const token = SyncStorage.get('token');
     
-    axios.get(`http://54.161.133.43:5001/api/client/benod/${props.route.params.projectId}`, { headers: { Authorization: `Bearer ${token}` } })
+    axios.get(`http://54.174.203.232:5001/api/client/benod/${props.route.params.projectId}`, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => {
         setTableData(res.data.benod);
       })
@@ -142,7 +88,7 @@ export default function Benod(props) {
       
 
 
-    axios.get(`http://54.161.133.43:5001/api/client/project/${props.route.params.projectId}`, { headers: { Authorization: `Bearer ${token}` } })
+    axios.get(`http://54.174.203.232:5001/api/client/project/${props.route.params.projectId}`, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => {
         setProjectLocation(res.data.project.clientData[0].projectLocation);
         setReceivedValue(res.data.project.clientData[0].projectReceieved);
@@ -176,9 +122,9 @@ export default function Benod(props) {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json', // Assuming JSON content type, adjust as needed
     };
-
+    console.log(text)
     axios
-      .put('http://54.161.133.43:5001/api/client/project/updateReceieved', { projectReceieved: text, _id: props.route.params.projectId }, { headers })
+      .put('http://54.174.203.232:5001/api/client/project/updateReceieved', { projectReceieved: text, _id: props.route.params.projectId }, { headers })
       .then((res) => {
         console.log(res.data);
       })
@@ -248,7 +194,7 @@ export default function Benod(props) {
     };
   
     axios
-      .post('http://54.161.133.43:5001/api/client/benod/addBand', { projectId: props.route.params.projectId }, { headers })
+      .post('http://54.174.203.232:5001/api/client/benod/addBand', { projectId: props.route.params.projectId }, { headers })
       .then((res) => {
         const newRow = { _id: res.data.band._id, bandName: '', bandHesabat: [], paid: 0 }; // Initialize "bandHesabat" as an empty array
         setTableData([...tableData, newRow]);
@@ -265,7 +211,7 @@ export default function Benod(props) {
       'Content-Type': 'application/json', // Assuming JSON content type, adjust as needed
     };
     axios
-      .put('http://54.161.133.43:5001/api/client/benod/update', { bandName: text, _id: itemId }, { headers })
+      .put('http://54.174.203.232:5001/api/client/benod/update', { bandName: text, _id: itemId }, { headers })
       .then((res) => {
         console.log(res.data);
       })
@@ -318,7 +264,7 @@ export default function Benod(props) {
     };
     console.log(token);
     axios
-      .delete('http://54.161.133.43:5001/api/client/project/delete', {
+      .delete('http://54.174.203.232:5001/api/client/project/delete', {
         data: { _id: props.route.params.projectId },
         headers: headers
       })
@@ -391,18 +337,8 @@ export default function Benod(props) {
         <GreyNumber>({tableData.length})</GreyNumber>
         <TouchableOpacity
           onPress={async () => {
-            try {
-              const permission = await MediaLibrary.requestPermissionsAsync();
-
-              if (permission.status === 'granted') {
-                const token = SyncStorage.get('token');
-                await downloadFile(`http://54.161.133.43:5001/api/client/project/getPdf/${props.route.params.projectId}`, token);
-              } else {
-                console.error('Permission to access media library denied');
-              }
-            } catch (error) {
-              console.error('Error while requesting permission:', error);
-            }
+            const token = SyncStorage.get('token');
+            await downloadAndSavePDF(`http://54.174.203.232:5001/api/client/project/getPdf/${props.route.params.projectId}`, token)
           }}
           style={{
             flexDirection: 'row',
@@ -532,3 +468,4 @@ export default function Benod(props) {
 
   );
 }
+

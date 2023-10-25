@@ -65,11 +65,12 @@ const Signup = ({ navigation }) => {
   const [googleSubmitting, setGoogleSubmitting] = useState(false);
   const handleSubmit = (values,setSubmitting) => {
     axios
-      .post('http://54.161.133.43:5001/api/users/register', {name:values.name, email:values.email, password:values.password, birthDate:values.dateOfBirth, phoneNumber:values.phone})
+      .post('http://54.174.203.232:5001/api/users/register', {name:values.name, email:values.email, password:values.password, birthDate:values.dateOfBirth, phoneNumber:values.phone})
       .then(async (response) => {
         console.log(response)
         const result = response.data;
         SyncStorage.set('token', result.token);
+        SyncStorage.set('name', result.name);
         navigation.navigate('Customer')
         setSubmitting(false);
       })

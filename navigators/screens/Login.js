@@ -43,7 +43,7 @@ const Login = ({ navigation }) => {
   }, [navigation]);
   const handleLogin = (credentials, setSubmitting) => {
     handleMessage(null);
-    const url = 'http://54.161.133.43:5001/api/users/login';
+    const url = 'http://54.174.203.232:5001/api/users/login';
     axios
       .post(url, {username: credentials.email, password: credentials.password})
       .then((response) => {

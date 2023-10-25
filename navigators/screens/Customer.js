@@ -25,10 +25,9 @@ export default function Customer() {
   const [change, setChange] = useState(false)
   useEffect(() => {
     const fullName = SyncStorage.get('name')
-    console.log
-    setName(fullName.split(' ')[0])
+    setName(fullName?.split(' ')[0])
     const token = SyncStorage.get('token')
-    axios.get('http://54.161.133.43:5001/api/client', {headers: {Authorization: `Bearer ${token}`}})
+    axios.get('http://54.174.203.232:5001/api/client', {headers: {Authorization: `Bearer ${token}`}})
     .then(res => {
       console.log(res.data)
       setTableData(res.data.clients)
@@ -64,14 +63,14 @@ export default function Customer() {
     };
     if(field === 'name')
       axios
-        .put('http://54.161.133.43:5001/api/client/update', {name: text, _id}, { headers })
+        .put('http://54.174.203.232:5001/api/client/update', {name: text, _id}, { headers })
         .then((res) => {
           console.log(res.data)
         })
         .catch((err) => console.log(err));
     if(field === 'phoneNumber')
       axios
-          .put('http://54.161.133.43:5001/api/client/update', {phoneNumber: text, _id}, { headers })
+          .put('http://54.174.203.232:5001/api/client/update', {phoneNumber: text, _id}, { headers })
           .then((res) => {
             console.log(res.data)
           })
@@ -131,7 +130,7 @@ export default function Customer() {
     };
     setChange(prev => !prev)
     axios
-      .post('http://54.161.133.43:5001/api/client/create', {}, { headers })
+      .post('http://54.174.203.232:5001/api/client/create', {}, { headers })
       .then((res) => {
         const newRow = { id: res.data.client._id, name: '', phone: '' };
         setTableData([...tableData, newRow]);
