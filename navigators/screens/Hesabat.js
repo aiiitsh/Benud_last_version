@@ -17,7 +17,7 @@ import { GreyNumber } from '../../components/styles';
 import { StyledButtonSmall2 } from '../../components/styles';
 import { Octicons, Fontisto, Ionicons } from '@expo/vector-icons';
 
-const categoryOptions = ['تشطيب', 'مصنعية', 'اخري'];
+const categoryOptions = ["تشطيب", 'تشطيب', 'مصنعية', 'اخري'];
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -101,6 +101,8 @@ export default function Hesabat() {
           placeholder=".........."
           placeholderTextColor="lightgrey"
           onChangeText={(text) => handleTextChange(item._id, 'notes', text)}
+          multiline={true} // Enable multiline input
+  numberOfLines={3} // Set the maximum number of lines (adjust as needed)
         />
 
         <TextInput
