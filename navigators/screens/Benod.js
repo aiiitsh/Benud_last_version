@@ -145,8 +145,9 @@ export default function Benod(props) {
         }}
       >
          <TouchableOpacity
-          onPress={() => {
-            console.log('طباعة button pressed!');
+          onPress={async () => {
+            const token = SyncStorage.get('token');
+            await downloadAndSavePDF(`http://54.174.203.232:5001/api/client/project/getPdf/${props.route.params.projectId+'/'+item.bandName}`, token)
           }}
           style={{
             alignItems: 'center',
