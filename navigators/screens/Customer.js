@@ -85,33 +85,69 @@ export default function Customer() {
   };
 
   const renderTableRow = ({ item, index }) => (
-    <TouchableOpacity onPress={() => handleRowPress(item)}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingVertical: 10,
-          borderBottomWidth: 1,
-          borderBottomColor: 'grey',
-          alignItems: 'center',
-        }}
-      >
-        <TextInput
-          style={{ textAlign: 'right', flex: 2 }}
-          placeholder="رقم الهاتف"
-          value={item.phoneNumber === ' ' ? '' : item.phoneNumber}
-          onChangeText={(text) => handleInputChange(text, index, 'phoneNumber', item._id)}
-        />
-        <TextInput
-          style={{ textAlign: 'right', flex: 2 }}
-          placeholder="الاسم"
-          value={item.name === ' ' ? '' : item.name}
-          onChangeText={(text) => handleInputChange(text, index, 'name', item._id)}
-        />
-        <Text style={{ textAlign: 'right', flex: 1 }}>{index + 1}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+  <TouchableOpacity onPress={() => handleRowPress(item)}>
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: 'grey',
+        alignItems: 'center',
+      }}
+    >
+      <TouchableOpacity onPress={() => handleEditPress(item._id)}>
+        <Octicons name="pencil" size={24} color={item.isEditing ? 'green' : 'black'} style={{ marginRight: 10 }} />
+      </TouchableOpacity>
+      {item.isEditing ? (
+        <>
+          <TextInput
+            style={{
+              textAlign: 'right',
+              flex: 2,
+              backgroundColor: 'white',
+              color: 'black',
+            }}
+            placeholder="رقم الهاتف"
+            value={item.phoneNumber}
+            onChangeText={(text) => handleInputChange(text, index, 'phoneNumber', item._id)}
+          />
+          <TextInput
+            style={{
+              textAlign: 'right',
+              flex: 2,
+              backgroundColor: 'white',
+              color: 'black',
+            }}
+            placeholder="الاسم"
+            value={item.name}
+            onChangeText={(text) => handleInputChange(text, index, 'name', item._id)}
+          />
+        </>
+      ) : (
+        <>
+          <Text style={{ textAlign: 'right', flex: 2 }}>{item.phoneNumber}</Text>
+          <Text style={{ textAlign: 'right', flex: 2 }}>{item.name}</Text>
+        </>
+      )}
+      <Text style={{ textAlign: 'right', flex: 1 }}>{index + 1}</Text>
+    </View>
+  </TouchableOpacity>
+);
+
+  
+
+  const handleEditPress = (_id) => {
+    const updatedTableData = tableData.map((item) => {
+      if (item._id === _id) {
+        return { ...item, isEditing: !item.isEditing };
+      } else {
+        return { ...item, isEditing: false };
+      }
+    });
+    setTableData(updatedTableData);
+  };
+  
   
   const renderSeparator = () => (
     <View
@@ -154,7 +190,7 @@ export default function Customer() {
             justifyContent: 'space-between',
             paddingVertical: 10,
             borderBottomWidth: 1,
-            borderBottomColor: 'grey',
+            borderBottomColor: 'black',
             alignItems: 'center',
             marginTop: 10,
           }}

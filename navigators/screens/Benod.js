@@ -144,9 +144,10 @@ export default function Benod(props) {
           borderBottomColor: 'grey',
         }}
       >
-        {/* <TouchableOpacity
-          onPress={() => {
-            console.log('طباعة button pressed!');
+         <TouchableOpacity
+          onPress={async () => {
+            const token = SyncStorage.get('token');
+            await downloadAndSavePDF(`http://54.174.203.232:5001/api/client/project/getPdf/${props.route.params.projectId+'/'+item.bandName}`, token)
           }}
           style={{
             alignItems: 'center',
@@ -154,8 +155,8 @@ export default function Benod(props) {
           }}
         >
           <Ionicons name="print" size={24} color="black" />
-        </TouchableOpacity> */}
-        {/* <TouchableOpacity
+        </TouchableOpacity> 
+         {/* <TouchableOpacity
           onPress={() => {
             navigation.navigate('Photos');
           }}
@@ -165,7 +166,7 @@ export default function Benod(props) {
           }}
         >
           <Ionicons name="image" size={24} color="black" />
-        </TouchableOpacity> */}
+        </TouchableOpacity>  */}
         <Text style={{ textAlign: 'right', flex: 4 }}>{Array.isArray(item.bandHesabat) ? item.bandHesabat.reduce((accumulator, currentValue) => { return accumulator + parseFloat(currentValue.paid) }, 0) : 0} </Text>
         <TextInput
           style={{ textAlign: 'right', flex: 4 }}
@@ -315,7 +316,7 @@ export default function Benod(props) {
         {/* <Text style={{ textAlign: 'right', flex: 2 }}>طباعة</Text> */}
         {/* <Text style={{ textAlign: 'right', flex: 4 }}>صور المرحلة</Text> */}
         <Text style={{ textAlign: 'right', flex: 4 }}>صرفت</Text>
-        <Text style={{ textAlign: 'right', flex: 4 }}>البند</Text>
+        <Text style={{ textAlign: 'right', flex: 3 }}>البند</Text>
         <Text style={{ textAlign: 'right', flex: 1 }}></Text>
       </View>
 
