@@ -24,12 +24,26 @@ const { darkLight, brand, primary } = Colors;
 
 
 export default function Projects(props) {
+  const [customersData, setCustomersData] = useState([])
+  const [_id, set_Id] = useState()
+  const [change, setChange] = useState(false)
   const [currentProjects, setCurrentProjects] = useState([]);
   const [endedProjects, setEndedProjects] = useState([]);
   const [customerId, setCustomerId] = useState(props.route.params.customerId);
+  const [tableData, setTableData] = useState(customersData);
 
   const navigation = useNavigation();
-
+  useEffect(() => {
+    const token = SyncStorage.get('token');
+    axios.get(`http://54.174.203.232:5001/api/client/data/${props.route.params.customerId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then(res => {
+      set_Id(props.route.params.customerId);
+      setTableData(res.data.customerData);
+    })
+    .catch(err => console.log('error'));
+  }, [props, change]);
   useEffect(() => {
     fetchCurrentProjects();
     fetchEndedProjects();
@@ -117,7 +131,7 @@ export default function Projects(props) {
     };
 
     axios
-      .post('http://54.174.203.232:5001/api/client/createData', { _id }, { headers })
+      .post('http://54.174.203.232:5001/api/client/createData', {_id}, { headers })
       .then((res) => {
         console.log(res.data);
         const newRow = { _id: res.data.clientData[0]._id, name: '', phone: '' };
