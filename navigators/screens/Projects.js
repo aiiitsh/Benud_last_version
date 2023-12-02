@@ -136,117 +136,117 @@ export default function Projects(props) {
   };
 
   return (
-    
-      <StyledContainer>
+    <StyledContainer>
       <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: 1,
-          }}
-        >
-          <TouchableOpacity onPress={handleBackButtonPress}>
-            {/* Replace text with a back arrow icon */}
-            <Ionicons name="arrow-back" size={34} color='#000000' />
-          </TouchableOpacity>
-          <PageTitle style={{ textAlign: 'right' }}>{props.route.params.customerName}</PageTitle>
-        </View>
-        <TouchableOpacity onPress={handlePhoneNumberPress}>
-          <SubTitle style={{ textAlign: 'right', textDecorationLine: 'underline', color: '#000000' }}>
-          {props.route.params.customerPhone}
-          </SubTitle>
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 5, // Adjusted margin for spacing
+        }}
+      >
+        <TouchableOpacity onPress={handleBackButtonPress}>
+          {/* Replace text with a back arrow icon */}
+          <Ionicons name="arrow-back" size={34} color='#000000' />
         </TouchableOpacity>
-
-        <InnerContainer style={{ flexDirection: 'row-reverse', alignItems: 'center' }}>
-          <SubTitle2 style={{ marginRight: 10 }}>المشاريع</SubTitle2>
-          <GreyNumber>({tableData.length})</GreyNumber>
-        </InnerContainer>
-
-        {/* Table Header */}
-        <View
+        <PageTitle style={{ textAlign: 'right' }}>{props.route.params.customerName}</PageTitle>
+      </View>
+      <TouchableOpacity onPress={handlePhoneNumberPress}>
+        <SubTitle style={{ textAlign: 'right', textDecorationLine: 'underline', color: '#000000', marginBottom: 5 }}>
+          {props.route.params.customerPhone}
+        </SubTitle>
+      </TouchableOpacity>
+  
+      <InnerContainer style={{ flexDirection: 'row-reverse', alignItems: 'center', marginTop: 5 }}>
+        <SubTitle2 style={{ marginRight: 10 }}>المشاريع</SubTitle2>
+        <GreyNumber>({tableData.length})</GreyNumber>
+      </InnerContainer>
+  
+      {/* Table Header */}
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          paddingVertical: 5,
+          borderBottomWidth: 1,
+          borderBottomColor: 'grey',
+          alignItems: 'center',
+          marginTop: 5,
+        }}
+      >
+        <Text style={{ textAlign: 'right', flex: 2 }}>العنوان</Text>
+        <Text style={{ textAlign: 'right', flex: 2 }}>|</Text>
+        <Text style={{ textAlign: 'right', flex: 2, color: '#00FF00' }}>المشروع</Text>
+        <Text style={{ textAlign: 'right', flex: 1 }}></Text>
+      </View>
+  
+      {/* Table Data */}
+      <View style={{ flex: 1, marginTop: 5 }}>
+        <FlatList
+          data={tableData}
+          renderItem={renderTableRow}
+          keyExtractor={(item) => item._id}
+          style={{ width: '100%' }}
+          ItemSeparatorComponent={renderSeparator}
+          keyboardShouldPersistTaps="handled"
+        />
+      </View>
+  
+      {/* Add Button */}
+      <View
+        style={{
+          alignSelf: 'flex-start',
+          marginBottom: 10,
+          marginLeft: 10,
+        }}
+      >
+        <TouchableOpacity
+          onPress={handlePlusButtonPress}
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingVertical: 10,
-            borderBottomWidth: 1,
-            borderBottomColor: 'grey',
+            backgroundColor: '#000000',
+            width: 60,
+            height: 60,
+            borderRadius: 25,
+            justifyContent: 'center',
             alignItems: 'center',
-            marginTop: 10,
           }}
         >
-          <Text style={{ textAlign: 'right', flex: 2 }}>العنوان</Text>
-          <Text style={{ textAlign: 'right', flex: 2 }}>|</Text>
-          <Text style={{ textAlign: 'right', flex: 2, color: '#00FF00' }}>المشروع</Text>
-          <Text style={{ textAlign: 'right', flex: 1 }}></Text>
-        </View>
-
-        {/* Table Data */}
-        <View style={{ flex: 1 }}>
-          <FlatList
-            data={tableData}
-            renderItem={renderTableRow}
-            keyExtractor={(item) => item._id}
-            style={{ width: '100%' }}
-            ItemSeparatorComponent={renderSeparator}
-            keyboardShouldPersistTaps="handled" 
-          />
-        </View>
-
-        {/* Add Button */}
-        <View
-          style={{
-            alignSelf: 'flex-start',
-            marginBottom: 20,
-            marginLeft: 20,
-          }}
-        >
-          <TouchableOpacity
-            onPress={handlePlusButtonPress}
-            style={{
-              backgroundColor: '#000000',
-              width: 60,
-              height: 60,
-              borderRadius: 25,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Text style={{ color: '#FFFFFF', fontSize: 36 }}>+</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Black Button */}
-        {/* <View
-          style={{
-            alignSelf: 'center',
-            marginVertical: 20,
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => {
-              const token = SyncStorage.get('token')
-              axios.get(`http://54.174.203.232:5001/api/client/getAccount/${props.route.params.customerId}`, {headers: {Authorization: `Bearer ${token}`}})
+          <Text style={{ color: '#FFFFFF', fontSize: 36 }}>+</Text>
+        </TouchableOpacity>
+      </View>
+  
+      {/* Black Button */}
+      {/* <View
+        style={{
+          alignSelf: 'center',
+          marginVertical: 10,
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            const token = SyncStorage.get('token');
+            axios.get(`http://54.174.203.232:5001/api/client/getAccount/${props.route.params.customerId}`, { headers: { Authorization: `Bearer ${token}` } })
               .then(res => {
-                console.log(res.data)
-              }).catch(err => console.log('error'))
-              //54.174.203.232:5001/
-            }} // Implement the action for the black button here
-            style={{
-              backgroundColor: 'black',
-              width: 300,
-              height: 60,
-              borderRadius: 30,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
-              احصل على اسم مستخدم للعميل
-            </Text>
-          </TouchableOpacity>
-        </View> */}
-      </StyledContainer>
-   
+                console.log(res.data);
+              }).catch(err => console.log('error'));
+            //54.174.203.232:5001/
+          }} // Implement the action for the black button here
+          style={{
+            backgroundColor: 'black',
+            width: 300,
+            height: 60,
+            borderRadius: 30,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
+            احصل على اسم مستخدم للعميل
+          </Text>
+        </TouchableOpacity>
+      </View> */}
+    </StyledContainer>
   );
+  
+  
 }
