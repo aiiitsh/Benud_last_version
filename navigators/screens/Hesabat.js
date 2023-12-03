@@ -82,7 +82,10 @@ export default function Hesabat() {
 
     return isMatchingFilter ? (
       <View
+      
         style={{
+          display: isMatchingFilter ? 'flex' : 'none', // Hide if not matching the filter
+
           flexDirection: 'row',
           justifyContent: 'space-between',
           paddingVertical: 10,
@@ -90,6 +93,7 @@ export default function Hesabat() {
           borderBottomColor: 'grey',
           alignItems: 'center',
         }}
+        key={item._id}
       >
         <TextInput
           style={{
@@ -163,47 +167,40 @@ export default function Hesabat() {
   const [selectedDate, setSelectedDate] = useState('');
 
   // Step 3: Create a function to update the date when the plus button is pressed
-  const handlePlusButtonPress = () => {
-    // Implement the action to add a new row with the current date
-    const currentDate = new Date(); // Get the current date
-    const formattedDate = currentDate.toLocaleDateString(); // Format the date as per your requirements
-
-    // Update the selectedDate state with the formatted date
-    setSelectedDate(formattedDate);
-
-    // Rest of your plus button logic
-    const token = SyncStorage.get('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json', // Assuming JSON content type, adjust as needed
-    };
-
-    if (activeView === 'A') {
-      axios
-        .post(
+  const handlePlusButtonPress = async () => {
+    try {
+      // Rest of your plus button logic
+      const token = SyncStorage.get('token');
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json', // Assuming JSON content type, adjust as needed
+      };
+  
+      let response;
+      if (activeView === 'A') {
+        response = await axios.post(
           'http://54.174.203.232:5001/api/client/hesabat/addHesab',
           { _id: route.params.bandId, classType: 'A' },
           { headers }
-        )
-        .then((res) => {
-          console.log(res.data);
-          setCustomersDataA((prevData) => [...prevData, res.data.hesab]);
-        })
-        .catch((err) => console.log(err));
-    } else {
-      axios
-        .post(
+        );
+        setCustomersDataA((prevData) => [...prevData, response.data.hesab]);
+      } else {
+        response = await axios.post(
           'http://54.174.203.232:5001/api/client/hesabat/addHesab',
           { _id: route.params.bandId, classType: 'B' },
           { headers }
-        )
-        .then((res) => {
-          setCustomersDataB((prevData) => [...prevData, res.data.hesab]);
-        })
-        .catch((err) => console.log(err));
+        );
+        setCustomersDataB((prevData) => [...prevData, response.data.hesab]);
+      }
+  
+      // Update the selectedDate state with the formatted date
+      setSelectedDate(response.data.hesab.date);
+      setChange((prev) => !prev);
+    } catch (error) {
+      console.log(error);
     }
-    setChange((prev) => !prev);
   };
+  
 
   const handleSwitchButtonPress = () => {
     // Toggle between View A and View B
@@ -282,11 +279,12 @@ export default function Hesabat() {
     }
   };
 
-  const handleBackButtonPress = () => {
+  const handleBackButtonPress = (item) => {
     // Implement the navigation to Benod.js when the back button is pressed
     navigation.navigate('Benod', {
       customerId: route.params.customerId,
       customerName: route.params.customerName,
+      bandId: item._id,
       customerPhone: route.params.customerPhone,
       timestamp: Date.now(),
       // projectId: item._id,
@@ -398,7 +396,9 @@ export default function Hesabat() {
         </View>
 
         {/* Table Data */}
+        
         <View style={{ flex: 1 }}>
+          
           <FlatList
             data={activeData}
             renderItem={renderTableRow}

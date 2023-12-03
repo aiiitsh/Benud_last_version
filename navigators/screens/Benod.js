@@ -101,18 +101,20 @@ export default function Benod(props) {
   const handleRowPress = (item) => {
     navigation.navigate('Hesabat', {
       customerId: props.route.params.customerId,
-      bandId: item._id,
       customerName: props.route.params.customerName,
+      bandId: item._id,
+      
       customerPhone: props.route.params.customerPhone,
       bandInfo: projectLocation + '| ' + item.bandName
     });
   };
 
-  const handleBackButtonPress = () => {
+  const handleBackButtonPress = (item) => {
     navigation.navigate('Projects', {
       customerId: props.route.params.customerId,
       customerName: props.route.params.customerName,
       customerPhone: props.route.params.customerPhone,
+      bandId: item._id,
     });
   };
 
