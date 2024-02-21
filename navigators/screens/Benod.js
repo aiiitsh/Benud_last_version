@@ -434,7 +434,7 @@ export default function Benod(props) {
             keyboardType="numeric"
           />
         </View>
-        <View style={{ flex: 1, padding: 20 }}>
+        {/* <View style={{ flex: 1, padding: 20 }}>
           <TouchableOpacity
             onPress={handleEndProject}
             style={{
@@ -462,7 +462,7 @@ export default function Benod(props) {
               </View>
             </View>
           )}
-        </View>
+        </View> */}
       </ScrollView>
     </StyledContainer>
 
