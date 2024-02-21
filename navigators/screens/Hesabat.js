@@ -82,6 +82,7 @@ export default function Hesabat() {
 
     return isMatchingFilter ? (
       <View
+      key={index}
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
