@@ -82,7 +82,7 @@ export default function Hesabat() {
 
     return isMatchingFilter ? (
       <View
-      key={index}
+      key={item._id}
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -151,8 +151,9 @@ export default function Hesabat() {
     ) : null;
   };
 
-  const renderSeparator = () => (
+  const renderSeparator = (index) => (
     <View
+    key={index}
       style={{
         height: 10,
         backgroundColor: 'transparent',
