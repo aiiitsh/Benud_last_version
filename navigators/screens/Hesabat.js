@@ -288,6 +288,7 @@ export default function Hesabat() {
       customerId: route.params.customerId,
       customerName: route.params.customerName,
       customerPhone: route.params.customerPhone,
+      projectId: route.params.projectId,
       timestamp: Date.now(),
     });
   };

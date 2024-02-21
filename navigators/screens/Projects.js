@@ -248,7 +248,7 @@ export default function Projects(props) {
       </View>
 
       {/* Table Header for Ended Projects */}
-      <InnerContainer style={{ flexDirection: 'row-reverse', alignItems: 'center' }}>
+      {/* <InnerContainer style={{ flexDirection: 'row-reverse', alignItems: 'center' }}>
         <SubTitle2 style={{ marginRight: 10 }}> الارشيف</SubTitle2>
         <GreyNumber>({endedProjects.length})</GreyNumber>
       </InnerContainer>
@@ -269,7 +269,7 @@ export default function Projects(props) {
         <Text style={{ textAlign: 'right', flex: 1 }}></Text>
       </View>
 
-      {/* Table Data for Ended Projects */}
+      Table Data for Ended Projects
       <View style={{ flex: 1 }}>
         <FlatList
           data={endedProjects}
@@ -279,7 +279,7 @@ export default function Projects(props) {
           ItemSeparatorComponent={renderSeparator}
           keyboardShouldPersistTaps="handled"
         />
-      </View>
+      </View> */}
     </StyledContainer>
   );
 }

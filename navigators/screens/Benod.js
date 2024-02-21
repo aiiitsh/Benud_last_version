@@ -102,6 +102,7 @@ export default function Benod(props) {
     navigation.navigate('Hesabat', {
       customerId: props.route.params.customerId,
       bandId: item._id,
+      projectId: props.route.params.projectId,
       customerName: props.route.params.customerName,
       customerPhone: props.route.params.customerPhone,
       bandInfo: projectLocation + '| ' + item.bandName
