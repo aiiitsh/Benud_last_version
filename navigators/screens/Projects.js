@@ -27,63 +27,27 @@ export default function Projects(props) {
   const [customersData, setCustomersData] = useState([])
   const [_id, set_Id] = useState()
   const [change, setChange] = useState(false)
-  const [currentProjects, setCurrentProjects] = useState([]);
-  const [endedProjects, setEndedProjects] = useState([]);
-  const [customerId, setCustomerId] = useState(props.route.params.customerId);
-  const [tableData, setTableData] = useState(customersData);
 
-  const navigation = useNavigation();
   useEffect(() => {
-    const token = SyncStorage.get('token');
-    axios.get(`http://54.174.203.232:5001/api/client/data/${props.route.params.customerId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    const token = SyncStorage.get('token')
+    axios.get(`http://3.81.96.115:5001/api/client/data/${props.route.params.customerId}`, {headers: {Authorization: `Bearer ${token}`}})
     .then(res => {
-      set_Id(props.route.params.customerId);
-      setTableData(res.data.customerData);
-    })
-    .catch(err => console.log('error'));
-  }, [props, change]);
-  useEffect(() => {
-    fetchCurrentProjects();
-    fetchEndedProjects();
-  }, []);
-
-  const fetchCurrentProjects = () => {
-    const token = SyncStorage.get('token');
-    axios
-      .get(`http://54.174.203.232:5001/api/client/data/${customerId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        setCurrentProjects(res.data.customerData);
-      })
-      .catch((err) => console.log('Error fetching current projects'));
-  };
-
-  const fetchEndedProjects = () => {
-    //fetching for ZIAAAAAD
-  };
-
-  
-
-  const handlePhoneNumberPress = () => {
-    const phoneUrl = `tel:${props.route.params.customerPhone}`;
+      set_Id(props.route.params.customerId)
+      setTableData(res.data.customerData)
+    }).catch(err => console.log('error'))
+  }, [props, change])
+  const [tableData, setTableData] = useState(customersData);
+  const navigation = useNavigation();
+  const handlePhoneNumberPress = () => { 
+    const phoneUrl = `tel:${props.route.params.customerPhone}}`;
     Linking.openURL(phoneUrl);
   };
-
   const handleRowPress = (item) => {
-    console.log(item._id);
-    navigation.navigate('Benod', {
-      projectId: item._id,
-      customerId: props.route.params.customerId,
-      customerName: props.route.params.customerName,
-      customerPhone: props.route.params.customerPhone,
-    });
+    console.log(item._id)
+    navigation.navigate('Benod', { projectId: item._id, customerId: props.route.params.customerId, customerName: props.route.params.customerName, customerPhone: props.route.params.customerPhone }); // Navigate to the Benod page
   };
-
   const handleBackButtonPress = () => {
-    navigation.navigate('Customer');
+    navigation.navigate('Customer'); // Navigate back to the previous screen
   };
 
   const renderTableRow = ({ item, index }) => (
@@ -122,47 +86,45 @@ export default function Projects(props) {
       }}
     />
   );
-
+//dfsgsd
   const handlePlusButtonPress = () => {
     const token = SyncStorage.get('token');
     const headers = {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json', // Assuming JSON content type, adjust as needed
     };
-
+  
     axios
-      .post('http://54.174.203.232:5001/api/client/createData', {_id}, { headers })
+      .post('http://3.81.96.115:5001/api/client/createData', {_id}, { headers })
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data)
         const newRow = { _id: res.data.clientData[0]._id, name: '', phone: '' };
         setTableData([...tableData, newRow]);
       })
       .catch((err) => console.log(err));
-    setChange((prev) => !prev);
+      setChange(prev => !prev)
   };
 
   const handleTextChange = (itemId, field, text) => {
     const token = SyncStorage.get('token');
     const headers = {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json', // Assuming JSON content type, adjust as needed
     };
-    if (field === 'projectName') {
+    if(field === 'projectName')
       axios
-        .put('http://54.174.203.232:5001/api/client/updateData', { projectName: text, _id: itemId }, { headers })
+        .put('http://3.81.96.115:5001/api/client/updateData', {projectName: text, _id: itemId}, { headers })
         .then((res) => {
-          console.log(res.data);
+          console.log(res.data)
         })
         .catch((err) => console.log(err));
-    }
-    if (field === 'projectLocation') {
+    if(field === 'projectLocation')
       axios
-        .put('http://54.174.203.232:5001/api/client/updateData', { projectLocation: text, _id: itemId }, { headers })
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((err) => console.log(err));
-    }
+          .put('http://3.81.96.115:5001/api/client/updateData', {projectLocation: text, _id: itemId}, { headers })
+          .then((res) => {
+            console.log(res.data)
+          })
+          .catch((err) => console.log(err));
     setTableData((prevData) =>
       prevData.map((item) => {
         if (item._id === itemId) {
@@ -180,35 +142,36 @@ export default function Projects(props) {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginBottom: 1,
+          marginBottom: 5, // Adjusted margin for spacing
         }}
       >
         <TouchableOpacity onPress={handleBackButtonPress}>
-          <Ionicons name="arrow-back" size={34} color="#000000" />
+          {/* Replace text with a back arrow icon */}
+          <Ionicons name="arrow-back" size={34} color='#000000' />
         </TouchableOpacity>
         <PageTitle style={{ textAlign: 'right' }}>{props.route.params.customerName}</PageTitle>
       </View>
       <TouchableOpacity onPress={handlePhoneNumberPress}>
-        <SubTitle style={{ textAlign: 'right', textDecorationLine: 'underline', color: '#000000' }}>
+        <SubTitle style={{ textAlign: 'right', textDecorationLine: 'underline', color: '#000000', marginBottom: 5 }}>
           {props.route.params.customerPhone}
         </SubTitle>
       </TouchableOpacity>
-
-      <InnerContainer style={{ flexDirection: 'row-reverse', alignItems: 'center' }}>
+  
+      <InnerContainer style={{ flexDirection: 'row-reverse', alignItems: 'center', marginTop: 5 }}>
         <SubTitle2 style={{ marginRight: 10 }}>المشاريع</SubTitle2>
-        <GreyNumber>({currentProjects.length})</GreyNumber>
+        <GreyNumber>({tableData.length})</GreyNumber>
       </InnerContainer>
-
-      {/* Table Header for Current Projects */}
+  
+      {/* Table Header */}
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          paddingVertical: 10,
+          paddingVertical: 5,
           borderBottomWidth: 1,
           borderBottomColor: 'grey',
           alignItems: 'center',
-          marginTop: 10,
+          marginTop: 5,
         }}
       >
         <Text style={{ textAlign: 'right', flex: 2 }}>العنوان</Text>
@@ -216,12 +179,11 @@ export default function Projects(props) {
         <Text style={{ textAlign: 'right', flex: 2, color: '#00FF00' }}>المشروع</Text>
         <Text style={{ textAlign: 'right', flex: 1 }}></Text>
       </View>
-
-      {/* Table Data for Current Projects */}
-      
-      <View style={{ flex: 1 }}>
+  
+      {/* Table Data */}
+      <View style={{ flex: 1, marginTop: 5 }}>
         <FlatList
-          data={currentProjects}
+          data={tableData}
           renderItem={renderTableRow}
           keyExtractor={(item) => item._id}
           style={{ width: '100%' }}
@@ -229,9 +191,15 @@ export default function Projects(props) {
           keyboardShouldPersistTaps="handled"
         />
       </View>
-
-      {/* Add Button for Current Projects */}
-      <View style={{ alignSelf: 'flex-start', marginBottom: 20, marginLeft: 20 }}>
+  
+      {/* Add Button */}
+      <View
+        style={{
+          alignSelf: 'flex-start',
+          marginBottom: 10,
+          marginLeft: 10,
+        }}
+      >
         <TouchableOpacity
           onPress={handlePlusButtonPress}
           style={{
@@ -246,40 +214,39 @@ export default function Projects(props) {
           <Text style={{ color: '#FFFFFF', fontSize: 36 }}>+</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Table Header for Ended Projects */}
-      <InnerContainer style={{ flexDirection: 'row-reverse', alignItems: 'center' }}>
-        <SubTitle2 style={{ marginRight: 10 }}> الارشيف</SubTitle2>
-        <GreyNumber>({endedProjects.length})</GreyNumber>
-      </InnerContainer>
-      <View
+  
+      {/* Black Button */}
+      {/* <View
         style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingVertical: 10,
-          borderBottomWidth: 1,
-          borderBottomColor: 'grey',
-          alignItems: 'center',
-          marginTop: 10,
+          alignSelf: 'center',
+          marginVertical: 10,
         }}
       >
-        <Text style={{ textAlign: 'right', flex: 2 }}>العنوان</Text>
-        <Text style={{ textAlign: 'right', flex: 2 }}>|</Text>
-        <Text style={{ textAlign: 'right', flex: 2, color: 'gray' }}>المشروع</Text>
-        <Text style={{ textAlign: 'right', flex: 1 }}></Text>
-      </View>
-
-      {/* Table Data for Ended Projects */}
-      <View style={{ flex: 1 }}>
-        <FlatList
-          data={endedProjects}
-          renderItem={renderTableRow}
-          keyExtractor={(item) => item._id}
-          style={{ width: '100%' }}
-          ItemSeparatorComponent={renderSeparator}
-          keyboardShouldPersistTaps="handled"
-        />
-      </View>
+        <TouchableOpacity
+          onPress={() => {
+            const token = SyncStorage.get('token');
+            axios.get(`http://3.81.96.115:5001/api/client/getAccount/${props.route.params.customerId}`, { headers: { Authorization: `Bearer ${token}` } })
+              .then(res => {
+                console.log(res.data);
+              }).catch(err => console.log('error'));
+            //3.81.96.115:5001/
+          }} // Implement the action for the black button here
+          style={{
+            backgroundColor: 'black',
+            width: 300,
+            height: 60,
+            borderRadius: 30,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
+            احصل على اسم مستخدم للعميل
+          </Text>
+        </TouchableOpacity>
+      </View> */}
     </StyledContainer>
   );
+  
+  
 }

@@ -78,7 +78,7 @@ export default function Benod(props) {
   useEffect(() => {
     const token = SyncStorage.get('token');
     
-    axios.get(`http://54.174.203.232:5001/api/client/benod/${props.route.params.projectId}`, { headers: { Authorization: `Bearer ${token}` } })
+    axios.get(`http://3.81.96.115:5001/api/client/benod/${props.route.params.projectId}`, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => {
         setTableData(res.data.benod);
       })
@@ -88,7 +88,7 @@ export default function Benod(props) {
       
 
 
-    axios.get(`http://54.174.203.232:5001/api/client/project/${props.route.params.projectId}`, { headers: { Authorization: `Bearer ${token}` } })
+    axios.get(`http://3.81.96.115:5001/api/client/project/${props.route.params.projectId}`, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => {
         setProjectLocation(res.data.project.clientData[0].projectLocation);
         setReceivedValue(res.data.project.clientData[0].projectReceieved);
@@ -102,6 +102,7 @@ export default function Benod(props) {
     navigation.navigate('Hesabat', {
       customerId: props.route.params.customerId,
       bandId: item._id,
+      projectId: props.route.params.projectId,
       customerName: props.route.params.customerName,
       customerPhone: props.route.params.customerPhone,
       bandInfo: projectLocation + '| ' + item.bandName
@@ -124,7 +125,7 @@ export default function Benod(props) {
     };
     console.log(text)
     axios
-      .put('http://54.174.203.232:5001/api/client/project/updateReceieved', { projectReceieved: text, _id: props.route.params.projectId }, { headers })
+      .put('http://3.81.96.115:5001/api/client/project/updateReceieved', { projectReceieved: text, _id: props.route.params.projectId }, { headers })
       .then((res) => {
         console.log(res.data);
       })
@@ -147,7 +148,7 @@ export default function Benod(props) {
          <TouchableOpacity
           onPress={async () => {
             const token = SyncStorage.get('token');
-            await downloadAndSavePDF(`http://54.174.203.232:5001/api/client/project/getPdf/${props.route.params.projectId+'/'+item.bandName}`, token)
+            await downloadAndSavePDF(`http://3.81.96.115:5001/api/client/project/getPdf/${props.route.params.projectId+'/'+item.bandName}`, token)
           }}
           style={{
             alignItems: 'center',
@@ -195,7 +196,7 @@ export default function Benod(props) {
     };
   
     axios
-      .post('http://54.174.203.232:5001/api/client/benod/addBand', { projectId: props.route.params.projectId }, { headers })
+      .post('http://3.81.96.115:5001/api/client/benod/addBand', { projectId: props.route.params.projectId }, { headers })
       .then((res) => {
         const newRow = { _id: res.data.band._id, bandName: '', bandHesabat: [], paid: 0 }; // Initialize "bandHesabat" as an empty array
         setTableData([...tableData, newRow]);
@@ -212,7 +213,7 @@ export default function Benod(props) {
       'Content-Type': 'application/json', // Assuming JSON content type, adjust as needed
     };
     axios
-      .put('http://54.174.203.232:5001/api/client/benod/update', { bandName: text, _id: itemId }, { headers })
+      .put('http://3.81.96.115:5001/api/client/benod/update', { bandName: text, _id: itemId }, { headers })
       .then((res) => {
         console.log(res.data);
       })
@@ -265,7 +266,7 @@ export default function Benod(props) {
     };
     console.log(token);
     axios
-      .delete('http://54.174.203.232:5001/api/client/project/delete', {
+      .delete('http://3.81.96.115:5001/api/client/project/delete', {
         data: { _id: props.route.params.projectId },
         headers: headers
       })
@@ -339,7 +340,7 @@ export default function Benod(props) {
         <TouchableOpacity
           onPress={async () => {
             const token = SyncStorage.get('token');
-            await downloadAndSavePDF(`http://54.174.203.232:5001/api/client/project/getPdf/${props.route.params.projectId}`, token)
+            await downloadAndSavePDF(`http://3.81.96.115:5001/api/client/project/getPdf/${props.route.params.projectId}`, token)
           }}
           style={{
             flexDirection: 'row',
@@ -434,7 +435,7 @@ export default function Benod(props) {
             keyboardType="numeric"
           />
         </View>
-        <View style={{ flex: 1, padding: 20 }}>
+        {/* <View style={{ flex: 1, padding: 20 }}>
           <TouchableOpacity
             onPress={handleEndProject}
             style={{
@@ -462,7 +463,7 @@ export default function Benod(props) {
               </View>
             </View>
           )}
-        </View>
+        </View> */}
       </ScrollView>
     </StyledContainer>
 
