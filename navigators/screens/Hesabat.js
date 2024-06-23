@@ -46,7 +46,7 @@ export default function Hesabat() {
     const token = SyncStorage.get('token');
     axios
       .get(
-        `http://54.174.203.232:5001/api/client/hesabat/${route.params.bandId}/A`,
+        `http://3.81.96.115:5001/api/client/hesabat/${route.params.bandId}/A`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
@@ -56,7 +56,7 @@ export default function Hesabat() {
       .catch((err) => console.log('error'));
     axios
       .get(
-        `http://54.174.203.232:5001/api/client/hesabat/${route.params.bandId}/B`,
+        `http://3.81.96.115:5001/api/client/hesabat/${route.params.bandId}/B`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
@@ -181,7 +181,7 @@ export default function Hesabat() {
     if (activeView === 'A') {
       axios
         .post(
-          'http://54.174.203.232:5001/api/client/hesabat/addHesab',
+          'http://3.81.96.115:5001/api/client/hesabat/addHesab',
           { _id: route.params.bandId, classType: 'A' },
           { headers }
         )
@@ -193,7 +193,7 @@ export default function Hesabat() {
     } else {
       axios
         .post(
-          'http://54.174.203.232:5001/api/client/hesabat/addHesab',
+          'http://3.81.96.115:5001/api/client/hesabat/addHesab',
           { _id: route.params.bandId, classType: 'B' },
           { headers }
         )
@@ -219,7 +219,7 @@ export default function Hesabat() {
     if (field === 'type')
       axios
         .put(
-          'http://54.174.203.232:5001/api/client/hesabat/update',
+          'http://3.81.96.115:5001/api/client/hesabat/update',
           { type: text, _id: itemId },
           { headers }
         )
@@ -230,7 +230,7 @@ export default function Hesabat() {
     if (field === 'paid')
       axios
         .put(
-          'http://54.174.203.232:5001/api/client/hesabat/update',
+          'http://3.81.96.115:5001/api/client/hesabat/update',
           { paid: text, _id: itemId },
           { headers }
         )
@@ -241,7 +241,7 @@ export default function Hesabat() {
     if (field === 'date')
       axios
         .put(
-          'http://54.174.203.232:5001/api/client/hesabat/update',
+          'http://3.81.96.115:5001/api/client/hesabat/update',
           { date: text, _id: itemId },
           { headers }
         )
@@ -252,7 +252,7 @@ export default function Hesabat() {
     if (field === 'notes')
       axios
         .put(
-          'http://54.174.203.232:5001/api/client/hesabat/update',
+          'http://3.81.96.115:5001/api/client/hesabat/update',
           { notes: text, _id: itemId },
           { headers }
         )

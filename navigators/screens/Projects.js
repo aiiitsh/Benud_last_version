@@ -35,7 +35,7 @@ export default function Projects(props) {
   const navigation = useNavigation();
   useEffect(() => {
     const token = SyncStorage.get('token');
-    axios.get(`http://54.174.203.232:5001/api/client/data/${props.route.params.customerId}`, {
+    axios.get(`http://3.81.96.115:5001/api/client/data/${props.route.params.customerId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then(res => {
@@ -52,7 +52,7 @@ export default function Projects(props) {
   const fetchCurrentProjects = () => {
     const token = SyncStorage.get('token');
     axios
-      .get(`http://54.174.203.232:5001/api/client/data/${customerId}`, {
+      .get(`http://3.81.96.115:5001/api/client/data/${customerId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -131,7 +131,7 @@ export default function Projects(props) {
     };
 
     axios
-      .post('http://54.174.203.232:5001/api/client/createData', {_id}, { headers })
+      .post('http://3.81.96.115:5001/api/client/createData', {_id}, { headers })
       .then((res) => {
         console.log(res.data);
         const newRow = { _id: res.data.clientData[0]._id, name: '', phone: '' };
@@ -149,7 +149,7 @@ export default function Projects(props) {
     };
     if (field === 'projectName') {
       axios
-        .put('http://54.174.203.232:5001/api/client/updateData', { projectName: text, _id: itemId }, { headers })
+        .put('http://3.81.96.115:5001/api/client/updateData', { projectName: text, _id: itemId }, { headers })
         .then((res) => {
           console.log(res.data);
         })
@@ -157,7 +157,7 @@ export default function Projects(props) {
     }
     if (field === 'projectLocation') {
       axios
-        .put('http://54.174.203.232:5001/api/client/updateData', { projectLocation: text, _id: itemId }, { headers })
+        .put('http://3.81.96.115:5001/api/client/updateData', { projectLocation: text, _id: itemId }, { headers })
         .then((res) => {
           console.log(res.data);
         })
