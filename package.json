@@ -9,14 +9,13 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-community/datetimepicker": "7.2.0",
-    "@react-native-async-storage/async-storage": "1.18.2",
+    "@react-native-community/datetimepicker": "^7.2.0",
     "@react-native-picker/picker": "2.4.10",
     "@react-navigation/bottom-tabs": "^6.5.9",
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/stack": "^6.3.18",
     "axios": "^1.5.1",
-    "expo": "~49.0.15",
+    "expo": "~49.0.13",
     "expo-file-system": "~15.4.5",
     "expo-image-picker": "~14.3.2",
     "expo-media-library": "~15.4.1",
@@ -40,8 +39,7 @@
     "sync-storage": "^0.4.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "husky": "^4.3.8"
+    "@babel/core": "^7.20.0"
   },
   "private": true
 }
