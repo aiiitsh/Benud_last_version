@@ -46,7 +46,7 @@ export default function Hesabat() {
     const token = SyncStorage.get('token');
     axios
       .get(
-        `http://54.174.203.232:5001/api/client/hesabat/${route.params.bandId}/A`,
+        `http://3.81.96.115/api/client/hesabat/${route.params.bandId}/A`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
@@ -56,7 +56,7 @@ export default function Hesabat() {
       .catch((err) => console.log('error'));
     axios
       .get(
-        `http://54.174.203.232:5001/api/client/hesabat/${route.params.bandId}/B`,
+        `http://3.81.96.115/api/client/hesabat/${route.params.bandId}/B`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
