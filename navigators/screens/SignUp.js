@@ -65,7 +65,7 @@ const Signup = ({ navigation }) => {
   const [googleSubmitting, setGoogleSubmitting] = useState(false);
   const handleSubmit = (values,setSubmitting) => {
     axios
-      .post('http://3.81.96.115/api/users/register', {name:values.name, email:values.email, password:values.password, birthDate:values.dateOfBirth, phoneNumber:values.phone})
+      .post('http://3.81.96.115:5001/api/users/register', {name:values.name, email:values.email, password:values.password, birthDate:values.dateOfBirth, phoneNumber:values.phone})
       .then(async (response) => {
         console.log(response)
         const result = response.data;
