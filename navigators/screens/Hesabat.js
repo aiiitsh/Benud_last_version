@@ -47,7 +47,11 @@ export default function Hesabat() {
     axios
       .get(
 <<<<<<< HEAD
+<<<<<<< HEAD
         `http://3.81.96.115:5001/api/client/hesabat/${route.params.bandId}/A`,
+=======
+        `http://54.174.203.232:5001/api/client/hesabat/${route.params.bandId}/A`,
+>>>>>>> parent of 1ca7190 (ht)
 =======
         `http://54.174.203.232:5001/api/client/hesabat/${route.params.bandId}/A`,
 >>>>>>> parent of 1ca7190 (ht)
@@ -61,7 +65,11 @@ export default function Hesabat() {
     axios
       .get(
 <<<<<<< HEAD
+<<<<<<< HEAD
         `http://3.81.96.115:5001/api/client/hesabat/${route.params.bandId}/B`,
+=======
+        `http://54.174.203.232:5001/api/client/hesabat/${route.params.bandId}/B`,
+>>>>>>> parent of 1ca7190 (ht)
 =======
         `http://54.174.203.232:5001/api/client/hesabat/${route.params.bandId}/B`,
 >>>>>>> parent of 1ca7190 (ht)

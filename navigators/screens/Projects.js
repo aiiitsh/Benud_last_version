@@ -31,7 +31,11 @@ export default function Projects(props) {
   useEffect(() => {
     const token = SyncStorage.get('token')
 <<<<<<< HEAD
+<<<<<<< HEAD
     axios.get(`http://3.81.96.115:5001/api/client/data/${props.route.params.customerId}`, {headers: {Authorization: `Bearer ${token}`}})
+=======
+    axios.get(`http://54.174.203.232:5001/api/client/data/${props.route.params.customerId}`, {headers: {Authorization: `Bearer ${token}`}})
+>>>>>>> parent of 1ca7190 (ht)
 =======
     axios.get(`http://54.174.203.232:5001/api/client/data/${props.route.params.customerId}`, {headers: {Authorization: `Bearer ${token}`}})
 >>>>>>> parent of 1ca7190 (ht)
@@ -100,7 +104,11 @@ export default function Projects(props) {
   
     axios
 <<<<<<< HEAD
+<<<<<<< HEAD
       .post('http://3.81.96.115:5001/api/client/createData', {_id}, { headers })
+=======
+      .post('http://54.174.203.232:5001/api/client/createData', {_id}, { headers })
+>>>>>>> parent of 1ca7190 (ht)
 =======
       .post('http://54.174.203.232:5001/api/client/createData', {_id}, { headers })
 >>>>>>> parent of 1ca7190 (ht)
@@ -122,7 +130,11 @@ export default function Projects(props) {
     if(field === 'projectName')
       axios
 <<<<<<< HEAD
+<<<<<<< HEAD
         .put('http://3.81.96.115:5001/api/client/updateData', {projectName: text, _id: itemId}, { headers })
+=======
+        .put('http://54.174.203.232:5001/api/client/updateData', {projectName: text, _id: itemId}, { headers })
+>>>>>>> parent of 1ca7190 (ht)
 =======
         .put('http://54.174.203.232:5001/api/client/updateData', {projectName: text, _id: itemId}, { headers })
 >>>>>>> parent of 1ca7190 (ht)
@@ -133,7 +145,11 @@ export default function Projects(props) {
     if(field === 'projectLocation')
       axios
 <<<<<<< HEAD
+<<<<<<< HEAD
           .put('http://3.81.96.115:5001/api/client/updateData', {projectLocation: text, _id: itemId}, { headers })
+=======
+          .put('http://54.174.203.232:5001/api/client/updateData', {projectLocation: text, _id: itemId}, { headers })
+>>>>>>> parent of 1ca7190 (ht)
 =======
           .put('http://54.174.203.232:5001/api/client/updateData', {projectLocation: text, _id: itemId}, { headers })
 >>>>>>> parent of 1ca7190 (ht)

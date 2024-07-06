@@ -66,7 +66,11 @@ const Signup = ({ navigation }) => {
   const handleSubmit = (values,setSubmitting) => {
     axios
 <<<<<<< HEAD
+<<<<<<< HEAD
       .post('http://3.81.96.115:5001/api/users/register', {name:values.name, email:values.email, password:values.password, birthDate:values.dateOfBirth, phoneNumber:values.phone})
+=======
+      .post('http://54.174.203.232:5001/api/users/register', {name:values.name, email:values.email, password:values.password, birthDate:values.dateOfBirth, phoneNumber:values.phone})
+>>>>>>> parent of 1ca7190 (ht)
 =======
       .post('http://54.174.203.232:5001/api/users/register', {name:values.name, email:values.email, password:values.password, birthDate:values.dateOfBirth, phoneNumber:values.phone})
 >>>>>>> parent of 1ca7190 (ht)

@@ -28,7 +28,11 @@ export default function Customer() {
     setName(fullName?.split(' ')[0])
     const token = SyncStorage.get('token')
 <<<<<<< HEAD
+<<<<<<< HEAD
     axios.get('http://3.81.96.115:5001/api/client', {headers: {Authorization: `Bearer ${token}`}})
+=======
+    axios.get('http://54.174.203.232:5001/api/client', {headers: {Authorization: `Bearer ${token}`}})
+>>>>>>> parent of 1ca7190 (ht)
 =======
     axios.get('http://54.174.203.232:5001/api/client', {headers: {Authorization: `Bearer ${token}`}})
 >>>>>>> parent of 1ca7190 (ht)
@@ -68,7 +72,11 @@ export default function Customer() {
     if(field === 'name')
       axios
 <<<<<<< HEAD
+<<<<<<< HEAD
         .put('http://3.81.96.115:5001/api/client/update', {name: text, _id}, { headers })
+=======
+        .put('http://54.174.203.232:5001/api/client/update', {name: text, _id}, { headers })
+>>>>>>> parent of 1ca7190 (ht)
 =======
         .put('http://54.174.203.232:5001/api/client/update', {name: text, _id}, { headers })
 >>>>>>> parent of 1ca7190 (ht)
@@ -79,7 +87,11 @@ export default function Customer() {
     if(field === 'phoneNumber')
       axios
 <<<<<<< HEAD
+<<<<<<< HEAD
           .put('http://3.81.96.115:5001/api/client/update', {phoneNumber: text, _id}, { headers })
+=======
+          .put('http://54.174.203.232:5001/api/client/update', {phoneNumber: text, _id}, { headers })
+>>>>>>> parent of 1ca7190 (ht)
 =======
           .put('http://54.174.203.232:5001/api/client/update', {phoneNumber: text, _id}, { headers })
 >>>>>>> parent of 1ca7190 (ht)
