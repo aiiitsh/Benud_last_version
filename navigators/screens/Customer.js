@@ -1,3 +1,4 @@
+//العملاء
 import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {  ActivityIndicator  } from 'react-native';
@@ -31,9 +32,7 @@ export default function Customer() {
 <<<<<<< HEAD
     axios.get('http://3.81.96.115:5001/api/client', {headers: {Authorization: `Bearer ${token}`}})
 =======
-    axios.get('http://54.174.203.232:5001/api/client', {headers: {Authorization: `Bearer ${token}`}})
->>>>>>> parent of 1ca7190 (ht)
-=======
+    
     axios.get('http://54.174.203.232:5001/api/client', {headers: {Authorization: `Bearer ${token}`}})
 >>>>>>> parent of 1ca7190 (ht)
     .then(res => {
