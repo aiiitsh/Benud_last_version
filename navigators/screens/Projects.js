@@ -30,7 +30,11 @@ export default function Projects(props) {
 
   useEffect(() => {
     const token = SyncStorage.get('token')
+<<<<<<< HEAD
     axios.get(`http://3.81.96.115:5001/api/client/data/${props.route.params.customerId}`, {headers: {Authorization: `Bearer ${token}`}})
+=======
+    axios.get(`http://54.174.203.232:5001/api/client/data/${props.route.params.customerId}`, {headers: {Authorization: `Bearer ${token}`}})
+>>>>>>> parent of 1ca7190 (ht)
     .then(res => {
       set_Id(props.route.params.customerId)
       setTableData(res.data.customerData)
@@ -95,7 +99,11 @@ export default function Projects(props) {
     };
   
     axios
+<<<<<<< HEAD
       .post('http://3.81.96.115:5001/api/client/createData', {_id}, { headers })
+=======
+      .post('http://54.174.203.232:5001/api/client/createData', {_id}, { headers })
+>>>>>>> parent of 1ca7190 (ht)
       .then((res) => {
         console.log(res.data)
         const newRow = { _id: res.data.clientData[0]._id, name: '', phone: '' };
@@ -113,14 +121,22 @@ export default function Projects(props) {
     };
     if(field === 'projectName')
       axios
+<<<<<<< HEAD
         .put('http://3.81.96.115:5001/api/client/updateData', {projectName: text, _id: itemId}, { headers })
+=======
+        .put('http://54.174.203.232:5001/api/client/updateData', {projectName: text, _id: itemId}, { headers })
+>>>>>>> parent of 1ca7190 (ht)
         .then((res) => {
           console.log(res.data)
         })
         .catch((err) => console.log(err));
     if(field === 'projectLocation')
       axios
+<<<<<<< HEAD
           .put('http://3.81.96.115:5001/api/client/updateData', {projectLocation: text, _id: itemId}, { headers })
+=======
+          .put('http://54.174.203.232:5001/api/client/updateData', {projectLocation: text, _id: itemId}, { headers })
+>>>>>>> parent of 1ca7190 (ht)
           .then((res) => {
             console.log(res.data)
           })

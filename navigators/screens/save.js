@@ -39,7 +39,11 @@ const customersData = [  { id: '1', name: 'مهندس محمود', phone: '01024
 // Add more customer data as needed]
   const token = SyncStorage.getItem("token")
   useEffect(() => {
+<<<<<<< HEAD
     axios.get('http://3.81.96.115:5001/api/client',{headers: {Authorization: `Bearer ${token}`}})
+=======
+    axios.get('http://54.174.203.232:5001/api/client',{headers: {Authorization: `Bearer ${token}`}})
+>>>>>>> parent of 1ca7190 (ht)
     .then(res => {
       console.log('asasda')
     }).catch(err => console.log('sss'))

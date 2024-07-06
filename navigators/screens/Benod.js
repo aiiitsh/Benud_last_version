@@ -125,7 +125,11 @@ export default function Benod(props) {
     };
     console.log(text)
     axios
+<<<<<<< HEAD
       .put('http://3.81.96.115:5001/api/client/project/updateReceieved', { projectReceieved: text, _id: props.route.params.projectId }, { headers })
+=======
+      .put('http://54.174.203.232:5001/api/client/project/updateReceieved', { projectReceieved: text, _id: props.route.params.projectId }, { headers })
+>>>>>>> parent of 1ca7190 (ht)
       .then((res) => {
         console.log(res.data);
       })
@@ -148,7 +152,11 @@ export default function Benod(props) {
          <TouchableOpacity
           onPress={async () => {
             const token = SyncStorage.get('token');
+<<<<<<< HEAD
             await downloadAndSavePDF(`http://3.81.96.115:5001/api/client/project/getPdf/${props.route.params.projectId+'/'+item.bandName}`, token)
+=======
+            await downloadAndSavePDF(`http://54.174.203.232:5001/api/client/project/getPdf/${props.route.params.projectId+'/'+item.bandName}`, token)
+>>>>>>> parent of 1ca7190 (ht)
           }}
           style={{
             alignItems: 'center',
@@ -196,7 +204,11 @@ export default function Benod(props) {
     };
   
     axios
+<<<<<<< HEAD
       .post('http://3.81.96.115:5001/api/client/benod/addBand', { projectId: props.route.params.projectId }, { headers })
+=======
+      .post('http://54.174.203.232:5001/api/client/benod/addBand', { projectId: props.route.params.projectId }, { headers })
+>>>>>>> parent of 1ca7190 (ht)
       .then((res) => {
         const newRow = { _id: res.data.band._id, bandName: '', bandHesabat: [], paid: 0 }; // Initialize "bandHesabat" as an empty array
         setTableData([...tableData, newRow]);
@@ -213,7 +225,11 @@ export default function Benod(props) {
       'Content-Type': 'application/json', // Assuming JSON content type, adjust as needed
     };
     axios
+<<<<<<< HEAD
       .put('http://3.81.96.115:5001/api/client/benod/update', { bandName: text, _id: itemId }, { headers })
+=======
+      .put('http://54.174.203.232:5001/api/client/benod/update', { bandName: text, _id: itemId }, { headers })
+>>>>>>> parent of 1ca7190 (ht)
       .then((res) => {
         console.log(res.data);
       })
@@ -266,7 +282,11 @@ export default function Benod(props) {
     };
     console.log(token);
     axios
+<<<<<<< HEAD
       .delete('http://3.81.96.115:5001/api/client/project/delete', {
+=======
+      .delete('http://54.174.203.232:5001/api/client/project/delete', {
+>>>>>>> parent of 1ca7190 (ht)
         data: { _id: props.route.params.projectId },
         headers: headers
       })
